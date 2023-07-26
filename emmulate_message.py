@@ -23,4 +23,5 @@ def send_message(message):
 
 if __name__ == '__main__':
     message = {"message": "save_password", "password": "abc123"}
+    message2 = {"message": "number_of_users"}
     send_message(message)
