@@ -1,5 +1,6 @@
 import socket
 import subprocess
+import json
 
 def receive_message():
     # Create a socket object
@@ -24,10 +25,17 @@ def receive_message():
     conn.close()
     s.close()
 
-    return data
+    # Deserialize the received JSON string to a Python dictionary
+    received_message = json.loads(data)
+
+    return received_message
 
 if __name__ == '__main__':
+    from load_message import load_message
+    print(load_message)
+
     while True:
+        print("\n\nListening for messages...\n")
         # Receive a message from the sender
         # message format: {"message": "save_password", "password": "abc123"}
         # available commands: "save_password"
