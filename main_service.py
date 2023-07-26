@@ -3,13 +3,20 @@ import subprocess
 import json
 import sqlite3
 
+# Set IP's and Ports for communication
+SENDER_IP = '127.0.0.1' # IP address of the main application sending messages to the service
+SENDER_PORT = 12345     # Port number of the main application sending messages to the service
+
+RECEIVER_IP = '127.0.0.2' # IP address where main application would like to receive messages from the service
+RECEIVER_PORT = 12345     # Port number where main application would like to receive messages from the service
+
 def receive_message():
     # Create a socket object
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     # Bind the socket to a specific IP and port
-    host_ip = '127.0.0.1'  # Use '0.0.0.0' to listen on all available network interfaces
-    port = 12345           # Use the same port number as in the sender script
+    host_ip = SENDER_IP  
+    port = SENDER_PORT           # Use the same port number as in the sender script
 
     s.bind((host_ip, port))
 
@@ -36,8 +43,8 @@ def send_message(message):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     # Define the receiver's IP address and port
-    receiver_ip = '127.0.0.2'  # Replace with the receiver's IP if running on a different machine
-    receiver_port = 12345      # Choose a free port number
+    receiver_ip = RECEIVER_IP    
+    receiver_port = RECEIVER_PORT
 
     # Connect to the receiver
     s.connect((receiver_ip, receiver_port))
