@@ -10,7 +10,6 @@ cursor.execute('''
         id INTEGER PRIMARY KEY,
         username TEXT NOT NULL,
         password TEXT NOT NULL,
-        permissions TEXT NOT NULL
     )
 ''')
 
