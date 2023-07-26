@@ -20,3 +20,51 @@ COMMUNICATION CONTRACT:
         - This is an example of a message that the service would send for you to RECEIVE: return_data = {"message": "return_number_of_users", "number_of_users": len(users)}
         - Current Return Messages:
             + "return_number_of_users": accompanied by a "number_of_users" entry which returns a integer with how many users there are.
+
+UML Diagram:
+                                            Main Service - Data Request and Response                                        
+                                                                                                                            
+                                                                                                                 ,.-^^-._   
+                                                                                                                |-.____.-|  
+                                                                                                                |        |  
+                                                                                                                |        |  
+     ┌────────────────┐                                                              ┌────────────┐             |        |  
+     │Main Application│                                                              │Main Service│             '-.____.-'  
+     └───────┬────────┘                                                              └─────┬──────┘           User Database 
+            ┌┴┐                Send Request {"message": "number_of_users"}                ┌┴┐                       │       
+            │ │ ─────────────────────────────────────────────────────────────────────────>│ │                       │       
+            │ │                                                                           │ │                       │       
+            │ │                                                                           │ │   Fetch All Users    ┌┴┐      
+            │ │                                                                           │ │ ───────────────────> │ │      
+            │ │                                                                           │ │                      └┬┘      
+            │ │                                                                           │ │      Users Data       │       
+            │ │                                                                           │ │ <─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─│       
+            │ │                                                                           └┬┘                       │       
+            │ │ Send Response {"message": "return_number_of_users", "number_of_users": X}  │                        │       
+            │ │ <──────────────────────────────────────────────────────────────────────────│                        │       
+            │ │                                                                            │                        │       
+            │ │      Send Request {"message": "save_password", "password": "abc123"}      ┌┴┐                       │       
+            │ │ ─────────────────────────────────────────────────────────────────────────>│ │                       │       
+            │ │                                                                           │ │                       │       
+            │ │                                                                           │ │    Save Password     ┌┴┐      
+            │ │                                                                           │ │ ───────────────────> │ │      
+            │ │                                                                           │ │                      └┬┘      
+            │ │                                                                           │ │    Password Saved     │       
+            │ │                                                                           │ │ <─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─│       
+            │ │                                                                           └┬┘                       │       
+            │ ┌┴┐               Send Response {"message": "Password saved!"}               │                        │       
+            │ │ │ <─────────────────────────────────────────────────────────────────────────                        │       
+            │ └┬┘                                                                          │                        │       
+            │ │     Send Request {"message": "another_message", "data": "some_data"}      ┌┴┐                       │       
+            │ │ ─────────────────────────────────────────────────────────────────────────>│ │                       │       
+            │ │                                                                           └┬┘                       │       
+            │ │               Send Response {"message": "Invalid message!"}                │                        │       
+            │ │ <──────────────────────────────────────────────────────────────────────────│                        │       
+     ┌──────│ │───────┐                                                              ┌─────┴──────┐           User Database 
+     │Main A│ │ication│                                                              │Main Service│              ,.-^^-._   
+     └──────│ │───────┘                                                              └────────────┘             |-.____.-|  
+            │ │                                                                                                 |        |  
+            │ │                                                                                                 |        |  
+            │ │                                                                                                 |        |  
+            │ │                                                                                                 '-.____.-'  
+            └┬┘                                                                                                             

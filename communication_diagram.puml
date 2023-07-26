@@ -1,0 +1,39 @@
+@startuml
+  title Main Service - Data Request and Response
+  
+  participant MainApp as "Main Application"
+  participant MainService as "Main Service"
+  database Database as "User Database"
+  
+  activate MainApp
+  MainApp -> MainService: Send Request {"message": "number_of_users"}
+  deactivate MainApp
+  
+  activate MainService
+  MainService -> Database: Fetch All Users
+  activate Database
+  Database --> MainService: Users Data
+  deactivate Database
+  
+  MainService -> MainApp: Send Response {"message": "return_number_of_users", "number_of_users": X}
+  deactivate MainService
+  
+  MainApp -> MainService: Send Request {"message": "save_password", "password": "abc123"}
+  
+  activate MainService
+  MainService -> Database: Save Password
+  activate Database
+  Database --> MainService: Password Saved
+  deactivate Database
+  
+  MainService -> MainApp: Send Response {"message": "Password saved!"}
+  deactivate MainService
+  activate MainApp
+  MainApp -> MainService: Send Request {"message": "another_message", "data": "some_data"}
+  deactivate MainApp
+  
+  activate MainService
+  MainService -> MainApp: Send Response {"message": "Invalid message!"}
+  deactivate MainService
+
+@enduml
