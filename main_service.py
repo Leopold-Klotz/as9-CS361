@@ -39,15 +39,16 @@ if __name__ == '__main__':
         # Receive a message from the sender
         # message format: {"message": "save_password", "password": "abc123"}
         # available commands: "save_password"
+        # to add: "number_of_users"
         received_message = receive_message()
         print("Received message:", received_message)
 
         if received_message["message"] == "save_password":
-            print("Saving password...")
-            
+            print("Saving password...")    
             # Run login_microservice.py using subprocess
             try:
                 subprocess.run(['python', 'login_microservice.py', '--password', received_message["password"]])
+                print("Password saved!")
             except Exception as e:
                 print("Error while running login_microservice.py:", e)
         
