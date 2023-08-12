@@ -101,6 +101,15 @@ if __name__ == '__main__':
                 print("Number of users sent!")
             except Exception as e:
                 print("Error while sending message:", e)
+        elif received_message["message"] == "check_users":
+            users = get_all_users()
+            return_data = {"message": "return_check_users", "users": [{"username": user[1], "password": user[2]} for user in users]}
+            print (return_data)
+            try:
+                send_message(return_data)
+                print("Users sent!")
+            except Exception as e:
+                print("Error while sending message:", e)
 
 
         received_message = None
