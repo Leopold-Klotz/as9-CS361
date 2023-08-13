@@ -7,8 +7,8 @@ import sqlite3
 SENDER_IP = '127.0.0.1' # IP address of the main application sending messages to the service
 SENDER_PORT = 12345     # Port number of the main application sending messages to the service
 
-RECEIVER_IP = '127.0.0.2' # IP address where main application would like to receive messages from the service
-RECEIVER_PORT = 12345     # Port number where main application would like to receive messages from the service
+RECEIVER_IP = '127.0.0.1' # IP address where main application would like to receive messages from the service
+RECEIVER_PORT = 12346     # Port number where main application would like to receive messages from the service
 
 def receive_message():
     # Create a socket object

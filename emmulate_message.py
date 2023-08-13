@@ -1,7 +1,38 @@
 import socket
 import json
+import asyncio
 
-def send_message(message):
+async def receive_message():
+    # Create a socket object
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # Bind the socket to a specific IP and port
+    host_ip = '127.0.0.1'
+    port = 12346
+
+    s.bind((host_ip, port))
+
+    # Start listening for incoming connections
+    s.listen()
+
+    # Accept a connection from the sender
+    conn, addr = s.accept()
+
+    # Receive data from the sender
+    data = conn.recv(1024).decode()
+
+    # Close the connection and the socket
+    conn.close()
+    s.close()
+
+    # Deserialize the received JSON string to a Python dictionary
+    received_message = json.loads(data)
+
+    print("Received message: " + str(received_message))
+
+    return received_message
+
+async def send_message(message):
     # Create a socket object
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -24,4 +55,13 @@ def send_message(message):
 if __name__ == '__main__':
     message = {"message": "save_password", "password": "abc123"}
     message2 = {"message": "number_of_users"}
-    send_message(message2)
+    message3 = {"message": "check_users"}
+
+    task_1 = send_message(message3)
+    task_2 = receive_message()
+
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(asyncio.gather(task_1, task_2))
+    loop.close()
+
+    print(task_2)
